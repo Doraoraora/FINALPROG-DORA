@@ -1,9 +1,12 @@
+import random
+
 class Map:
       def __init__(self):
+            self.current_location = 'police station'
             self.locations = {
                   'sewers': ['herbs', 'ammo'], 
-                  'police_station' : ['pouch'],
-                  'back_streets' : ['herbs', 'ammo', 'first aid spray']
+                  'police station' : ['pouch'],
+                  'back streets' : ['herbs', 'ammo', 'first aid spray']
             }
 
       def add_item_to_location(self, location: str, item: str):
@@ -15,6 +18,7 @@ class Map:
                   if item == target: 
                         return True 
             return False
-
-
-            
+      
+      def get_random_item_from_current_location(self) -> str:
+            items = self.locations[self.current_location]
+            return items[random.randint(0, len(items) - 1)]

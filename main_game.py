@@ -31,17 +31,20 @@ def rock_paper_scissors(player: str, zombie: str) -> str:
     return 'invalid'
 
 if __name__ == '__main__':
+    level = Map()
     player = Character("", 0, "")
-    print_dramatic_text('FOR COMBAT-HEAVY GAMEPLAY, LEON IS RECOMMENDED.')
-    player_input = input()
-    if input == 'LEON' or '1' or 'Leon':
-        player = Character("Leon", 3, "Pistol")
-        print_dramatic_text ('On the night of September 30, 1998 two months after the events of Resident Evil, rookie police officer Leon S. Kennedy makes his way toward Raccoon City to start his first shift at the Raccoon City Police Department.')
-    if player.name == 'Leon':
-        print_dramatic_text('Leon falls down the sewer!')
+
+    print_dramatic_text('Enter your character name. Leon is recommended for combat-heavy gameplay.')
+    name = input()
+    player.name = name
+
+    print_dramatic_text ('On the night of September 30, 1998 two months after the events of Resident Evil, rookie police officer Leon S. Kennedy makes his way toward Raccoon City to start his first shift at the Raccoon City Police Department.')
 
     wins = 0
-    while(wins < 3):
+    while(wins < 3 and player.alive):
+        level.current_location = random.choice(list(level.locations))
+        print_dramatic_text('You enter the ' + level.current_location + ' ...')
+
         print_dramatic_text('A zombie appears!')
         zombie = generate_zombie()
 
@@ -62,12 +65,14 @@ if __name__ == '__main__':
             
         if result == 'win':
             print_dramatic_text('You won this round!')
+            item = level.get_random_item_from_current_location()
+            print_dramatic_text(player.name + ' receives ' + item + ' from ' + level.current_location + '!')
             wins += 1
         if result == 'lose':
-            print_dramatic_text('You lost this round ...')
-            break
+            health = player.take_damage()
+            print_dramatic_text('You lost this round ... ' + player.name + '\'s health is ' + health)
 
-    if wins == 3:
+    if wins == 3 and player.alive:
         print_dramatic_text('congratulations, you survived!')
     else:
         print_dramatic_text('you died!')

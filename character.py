@@ -20,7 +20,7 @@ class Character():
         if self.health == 3:
             return 'safe'
 
-    def add_to_inventory(item: str) -> None:
+    def add_to_inventory(self, item: str) -> None:
         self.inventory.append(item)
 
       
