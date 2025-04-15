@@ -2,7 +2,7 @@ import random
 from gameplay import Map
 from character import Character
 
-rps = ['rock', 'paper', 'scissors']
+pfs = ['pistol', 'fist', 'shiv']
 
 def print_dramatic_text(text: str, delay=0.1):
     for char in text:
@@ -10,21 +10,21 @@ def print_dramatic_text(text: str, delay=0.1):
     print()
 
 def generate_zombie() -> str:
-    result = rps[random.randint(0, 2)]
+    result = pfs[random.randint(0, 2)]
     return result
 
-def rock_paper_scissors(player: str, zombie: str) -> str:
-    if player == 'rock' and zombie == 'scissors':
+def pistol_fists_shiv(player: str, zombie: str) -> str:
+    if player == 'pistol' and zombie == 'shiv':
         return 'win'
-    if player == 'rock' and zombie == 'paper':
+    if player == 'pistol' and zombie == 'fist':
         return 'lose'
-    if player == 'scissors' and zombie == 'paper':
+    if player == 'shiv' and zombie == 'fist':
         return 'win'
-    if player == 'scissors' and zombie == 'rock':
+    if player == 'shiv' and zombie == 'pistol':
         return 'lose'
-    if player == 'paper' and zombie == 'rock':
+    if player == 'fist' and zombie == 'pistol':
         return 'win'
-    if player == 'paper' and zombie == 'scissors':
+    if player == 'fist' and zombie == 'shiv':
         return 'lose'
     if player == zombie:
         return 'tie'
@@ -32,13 +32,13 @@ def rock_paper_scissors(player: str, zombie: str) -> str:
 
 if __name__ == '__main__':
     level = Map()
-    player = Character("", 0, "")
+    player = Character("", 3, "")
 
-    print_dramatic_text('Enter your character name. Leon is recommended for combat-heavy gameplay.')
+    print_dramatic_text('Enter your character name. Leon is recommended for combat-heavy gameplay. \n Claire is reccommended for story-based gameplay')
     name = input()
     player.name = name
 
-    print_dramatic_text ('On the night of September 30, 1998 two months after the events of Resident Evil, rookie police officer Leon S. Kennedy makes his way toward Raccoon City to start his first shift at the Raccoon City Police Department.')
+    print_dramatic_text ('On the night of September 30, 1998 two months after the events of Resident Evil, rookie police officer Leon S. Kennedy makes his way toward Raccoon City to start his first shift at the Raccoon City Police Department. /n Meanwhile, Claire Refield is navigating through the back streets')
 
     wins = 0
     while(wins < 3 and player.alive):
@@ -48,20 +48,20 @@ if __name__ == '__main__':
         print_dramatic_text('A zombie appears!')
         zombie = generate_zombie()
 
-        player_input = input('Enter rock, paper, or scissors: ')
-        result = rock_paper_scissors(player_input, zombie)
+        player_input = input('Enter pistol, fist, or shiv: ')
+        result = pistol_fists_shiv(player_input, zombie)
 
         while result == 'invalid':
-            player_input = input('Try again (rock, paper, scissors): ')
-            result = rock_paper_scissors(player_input, zombie)
+            player_input = input('Try again (pistol, fist, shiv): ')
+            result = pistol_fists_shiv(player_input, zombie)
 
         while result == 'tie':
-            player_input = input('You tied, try again (rock, paper, scissors): ')
+            player_input = input('You tied, try again (pistol, fist, shiv): ')
             zombie = generate_zombie()
-            result = rock_paper_scissors(player_input, zombie)
+            result = pistol_fists_shiv(player_input, zombie)
             while result == 'invalid':
-                player_input = input('Try again (rock, paper, scissors): ')
-                result = rock_paper_scissors(player_input, zombie)
+                player_input = input('Try again (pistol, fist, shiv): ')
+                result = pistol_fists_shiv(player_input, zombie)
             
         if result == 'win':
             print_dramatic_text('You won this round!')
@@ -73,7 +73,7 @@ if __name__ == '__main__':
             print_dramatic_text('You lost this round ... ' + player.name + '\'s health is ' + health)
 
     if wins == 3 and player.alive:
-        print_dramatic_text('congratulations, you survived!')
+        print_dramatic_text(' Y O U   S U R V I V E D !')
     else:
-        print_dramatic_text('you died!')
+        print_dramatic_text('Y O U   D I E D!')
 
