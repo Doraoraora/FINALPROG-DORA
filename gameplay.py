@@ -5,7 +5,7 @@ class Map:
             self.current_location = 'police station'
             self.locations = {
                   'sewers': ['herbs', 'ammo'], 
-                  'police station' : ['pouch'],
+                  'police station' : ['pouch', 'first aid spray'],
                   'back streets' : ['herbs', 'ammo', 'first aid spray']
             }
 

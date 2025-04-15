@@ -45,6 +45,9 @@ if __name__ == '__main__':
         level.current_location = random.choice(list(level.locations))
         print_dramatic_text('You enter the ' + level.current_location + ' ...')
 
+        if level.item_is_in_location(level.current_location, 'first aid spray'):
+            print('first aid spray is in this location!')
+
         print_dramatic_text('A zombie appears!')
         zombie = generate_zombie()
 
